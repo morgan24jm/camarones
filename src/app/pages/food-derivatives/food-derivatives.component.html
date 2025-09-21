@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="section-title">
+    <h2>Derivados alimenticios</h2>
+  </div>
+  
+  <div class="derivatives-grid">
+    <div class="derivative-card fade-in" *ngFor="let derivative of derivatives">
+      <h3 class="derivative-title">{{ derivative.title }}</h3>
+      <img [src]="derivative.image" [alt]="derivative.title" class="derivative-image">
+      <p class="derivative-description">{{ derivative.description }}</p>
+    </div>
+  </div>
+</div>

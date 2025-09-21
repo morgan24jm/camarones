@@ -1,0 +1,47 @@
+<div class="login-container">
+  <div class="login-header">
+    <h1 class="header-title">Camarones</h1>
+    <h2 class="header-subtitle">y sus derivados</h2>
+    <div class="header-logo">🦐</div>
+  </div>
+  
+  <div class="login-card">
+    <h2 class="login-title">Iniciar sesión</h2>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-group">
+        <input 
+          type="text" 
+          formControlName="emailOrPhone" 
+          placeholder="Ingresa tu correo o número telefónico"
+          class="form-input"
+          [class.error]="loginForm.get('emailOrPhone')?.invalid && loginForm.get('emailOrPhone')?.touched"
+        >
+        <div class="error-message" *ngIf="loginForm.get('emailOrPhone')?.invalid && loginForm.get('emailOrPhone')?.touched">
+          Por favor ingresa tu correo o teléfono
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <input 
+          type="password" 
+          formControlName="password" 
+          placeholder="Ingresa tu Contraseña"
+          class="form-input"
+          [class.error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+        >
+        <div class="error-message" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          Por favor ingresa tu contraseña
+        </div>
+      </div>
+      
+      <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
+        Entrar
+      </button>
+    </form>
+    
+    <div class="register-link">
+      <p>¿Aún no tienes cuenta? <a routerLink="/registro">Regístrate aquí</a></p>
+    </div>
+  </div>
+</div>

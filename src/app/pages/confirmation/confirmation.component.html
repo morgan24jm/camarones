@@ -1,0 +1,66 @@
+<div class="confirmation-container">
+  <!-- Header -->
+  <header class="confirmation-header">
+    <div class="header-left">
+      <h1 class="header-title">Camarones y sus derivados</h1>
+      <img src="assets/images/logo.png" alt="Logo" class="header-logo">
+    </div>
+    <div class="header-right">
+      <button class="hamburger-menu" (click)="toggleMobileMenu()">
+        ☰
+      </button>
+    </div>
+  </header>
+
+  <!-- Navigation Icons -->
+  <div class="nav-icons">
+    <div class="nav-icon red" routerLink="/productos" title="Productos">
+      <img src="assets/images/cg.png" alt="Productos" class="nav-icon-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="nav-icon-fallback">🦐</div>
+    </div>
+    <div class="nav-icon brown" routerLink="/derivados-alimenticios" title="Derivados Alimenticios">
+      <img src="assets/images/pa.jpg" alt="Alimenticios" class="nav-icon-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="nav-icon-fallback">🍽️</div>
+    </div>
+    <div class="nav-icon green" routerLink="/derivados-industriales" title="Derivados Industriales">
+      <img src="assets/images/pi.jpg" alt="Industriales" class="nav-icon-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="nav-icon-fallback">🏭</div>
+    </div>
+  </div>
+
+  <!-- Sidebar Menu -->
+  <div class="sidebar-overlay" [class.show]="showMobileMenu" (click)="toggleMobileMenu()"></div>
+  <div class="sidebar-menu" [class.show]="showMobileMenu">
+    <div class="sidebar-header">
+      <button class="close-btn" (click)="toggleMobileMenu()">
+        ✕
+      </button>
+    </div>
+    <div class="sidebar-content">
+      <div class="user-info">
+        <span class="user-icon">👤</span>
+        <span class="user-name">Juan Garcia</span>
+      </div>
+      <button class="back-btn" routerLink="/productos">
+        <span class="back-icon">←</span>
+        Volver
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="confirmation-content">
+    <div class="success-modal">
+      <div class="success-icon">
+        ✅
+      </div>
+      <h2 class="success-title">¡Compra realizada con éxito!</h2>
+      <p class="success-message">
+        Recibirás un correo electrónico con los detalles de tu compra.
+      </p>
+      <button class="accept-btn" (click)="goToHome()">
+        Aceptar
+      </button>
+    </div>
+  </div>
+</div>

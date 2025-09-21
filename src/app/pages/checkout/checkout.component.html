@@ -1,0 +1,99 @@
+<div class="checkout-container">
+  <!-- Header -->
+  <header class="checkout-header">
+    <div class="header-left">
+      <h1 class="header-title">Camarones y sus derivados</h1>
+      <img src="assets/images/logo.png" alt="Logo" class="header-logo">
+    </div>
+    <div class="header-right">
+      <button class="hamburger-menu" (click)="toggleMobileMenu()">
+        ☰
+      </button>
+    </div>
+  </header>
+
+  <!-- Navigation Icons -->
+  <div class="nav-icons">
+    <div class="nav-icon red" routerLink="/productos" title="Productos">
+      <img src="assets/images/cg.png" alt="Productos" class="nav-icon-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="nav-icon-fallback">🦐</div>
+    </div>
+    <div class="nav-icon brown" routerLink="/derivados-alimenticios" title="Derivados Alimenticios">
+      <img src="assets/images/pa.jpg" alt="Alimenticios" class="nav-icon-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="nav-icon-fallback">🍽️</div>
+    </div>
+    <div class="nav-icon green" routerLink="/derivados-industriales" title="Derivados Industriales">
+      <img src="assets/images/pi.jpg" alt="Industriales" class="nav-icon-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="nav-icon-fallback">🏭</div>
+    </div>
+  </div>
+
+  <!-- Sidebar Menu -->
+  <div class="sidebar-overlay" [class.show]="showMobileMenu" (click)="toggleMobileMenu()"></div>
+  <div class="sidebar-menu" [class.show]="showMobileMenu">
+    <div class="sidebar-header">
+      <button class="close-btn" (click)="toggleMobileMenu()">
+        ✕
+      </button>
+    </div>
+    <div class="sidebar-content">
+      <div class="user-info">
+        <span class="user-icon">👤</span>
+        <span class="user-name">Juan Garcia</span>
+      </div>
+      <button class="back-btn" routerLink="/productos">
+        <span class="back-icon">←</span>
+        Volver
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="checkout-content">
+    <div class="product-card">
+      <h2 class="product-title">Camarón fresco entero (con cabeza y cáscara)</h2>
+      
+      <div class="product-details">
+        <div class="product-image">
+          <img src="assets/images/camarones.png" alt="Camarones frescos" class="product-img">
+        </div>
+        
+        <div class="product-form">
+          <div class="form-group">
+            <label class="form-label">Dirección</label>
+            <input type="text" class="form-input" value="Cuauhtemoc 103, menchaca III, qro, qro" readonly>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Forma de pago</label>
+            <input type="text" class="form-input" value="Débito" readonly>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Cantidad de producto</label>
+            <div class="quantity-selector">
+              <button class="quantity-btn" (click)="decreaseQuantity()">-</button>
+              <input type="text" class="quantity-input" [value]="quantity + ' KG'" readonly>
+              <button class="quantity-btn" (click)="increaseQuantity()">+</button>
+            </div>
+          </div>
+          
+          <div class="pricing">
+            <div class="price-item">
+              <span class="price-label">Subtotal</span>
+              <span class="price-value">{{ subtotal }}$</span>
+            </div>
+            <div class="price-item total">
+              <span class="price-label">Total</span>
+              <span class="price-value">{{ total }}$</span>
+            </div>
+          </div>
+          
+          <button class="pay-btn" (click)="proceedToPayment()">
+            Pagar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

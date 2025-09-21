@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="section-title">
+    <h2>Producto Principal</h2>
+  </div>
+  
+  <div class="main-product-card fade-in">
+    <h3 class="product-title">Camarón fresco entero (con cabeza y cáscara)</h3>
+    <img src="assets/images/cf.jpg" alt="Camarón fresco" class="product-image">
+    <p class="product-description">
+      Se vende tal cual, con cabeza y cáscara, ideal para platillos que requieran sabor más intenso.
+    </p>
+    <button class="btn btn-primary">
+      <span>🛒</span>
+      Agregar al carrito
+    </button>
+  </div>
+  
+  <div class="products-grid">
+    <div class="product-card fade-in" *ngFor="let product of products">
+      <h3 class="product-title">{{ product.title }}</h3>
+      <img [src]="product.image" [alt]="product.title" class="product-image">
+      <p class="product-description">{{ product.description }}</p>
+      <button class="btn">
+        <span>🛒</span>
+        Agregar al carrito
+      </button>
+    </div>
+  </div>
+  
+  <!-- Indicador de scroll horizontal para desktop -->
+  <div class="scroll-indicator">
+    <span class="scroll-text">← Desliza para ver más productos →</span>
+  </div>
+</div>

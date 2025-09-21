@@ -1,0 +1,87 @@
+<header class="header">
+  <!-- Mobile Header (440x956) -->
+  <div class="mobile-header">
+    <div class="header-content">
+      <div class="header-left">
+        <div class="title-logo-container">
+          <div class="header-text">
+            <h1 class="header-title">Camarones y sus derivados</h1>
+          
+            <!-- Espacio para tu logo del camarón -->
+            <img src="assets/images/logo.png" alt="Logo Camarones" class="logo-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="logo-fallback">🦐</div>
+          </div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="hamburger-menu" (click)="toggleMobileMenu()">
+          ☰
+        </button>
+      </div>
+    </div>
+
+    <div class="nav-icons">
+      <div class="nav-icon red" routerLink="/productos" title="Productos">
+        <img src="assets/images/cg.png" alt="Productos" class="nav-icon-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="nav-icon-fallback">🦐</div>
+      </div>
+      <div class="nav-icon brown" routerLink="/derivados-alimenticios" title="Derivados Alimenticios">
+        <img src="assets/images/pa.jpg" alt="Alimenticios" class="nav-icon-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="nav-icon-fallback">🍽️</div>
+      </div>
+      <div class="nav-icon green" routerLink="/derivados-industriales" title="Derivados Industriales">
+        <img src="assets/images/pi.jpg" alt="Industriales" class="nav-icon-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="nav-icon-fallback">🏭</div>
+      </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <div class="sidebar-overlay" [class.show]="showMobileMenu" (click)="toggleMobileMenu()"></div>
+    <div class="sidebar-menu" [class.show]="showMobileMenu">
+      <div class="sidebar-header">
+        <button class="close-btn" (click)="toggleMobileMenu()">
+          ✕
+        </button>
+      </div>
+      <div class="sidebar-content">
+        <button class="sidebar-login-btn" routerLink="/login">
+          Iniciar sesión →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Desktop Header (1280x742) -->
+  <div class="desktop-header">
+    <div class="header-content-desktop">
+      <div class="header-left-desktop">
+        <div class="header-text-desktop">
+          <h1 class="header-title-desktop">Camarones y sus derivados</h1>
+        </div>
+        <div class="header-logo-desktop">
+          <!-- Espacio para tu logo del camarón -->
+          <img src="assets/images/logo.png" alt="Logo Camarones" class="logo-image-desktop" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="logo-fallback-desktop">🦐</div>
+        </div>
+      </div>
+      <button class="login-btn" routerLink="/login">
+        Iniciar sesión →
+      </button>
+    </div>
+
+    <div class="nav-buttons-desktop">
+      <button class="nav-btn red" routerLink="/productos">
+        <img src="assets/images/cg.png" alt="Productos" class="nav-icon-image">
+        Producto Primario
+      </button>
+      <button class="nav-btn brown" routerLink="/derivados-alimenticios">
+        <img src="assets/images/pa.jpg" alt="Alimenticios" class="nav-icon-image">
+        Alimenticio
+      </button>
+      <button class="nav-btn green" routerLink="/derivados-industriales">
+        <img src="assets/images/pi.jpg" alt="Industriales" class="nav-icon-image">
+        Industrial
+      </button>
+    </div>
+  </div>
+</header>
