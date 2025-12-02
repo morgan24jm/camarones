@@ -8,17 +8,26 @@
   <div class="login-card">
     <h2 class="login-title">Iniciar sesión</h2>
     
+    <!-- Mensajes de estado -->
+    <div class="alert alert-error" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+    
+    <div class="alert alert-success" *ngIf="successMessage">
+      {{ successMessage }}
+    </div>
+    
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
       <div class="form-group">
         <input 
-          type="text" 
-          formControlName="emailOrPhone" 
-          placeholder="Ingresa tu correo o número telefónico"
+          type="email" 
+          formControlName="email" 
+          placeholder="Ingresa tu correo electrónico"
           class="form-input"
-          [class.error]="loginForm.get('emailOrPhone')?.invalid && loginForm.get('emailOrPhone')?.touched"
+          [class.error]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
         >
-        <div class="error-message" *ngIf="loginForm.get('emailOrPhone')?.invalid && loginForm.get('emailOrPhone')?.touched">
-          Por favor ingresa tu correo o teléfono
+        <div class="error-message" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+          Por favor ingresa un correo válido
         </div>
       </div>
       
@@ -31,14 +40,22 @@
           [class.error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
         >
         <div class="error-message" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-          Por favor ingresa tu contraseña
+          La contraseña debe tener al menos 6 caracteres
         </div>
       </div>
       
-      <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
-        Entrar
+      <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid || isLoading">
+        <span *ngIf="isLoading">Iniciando sesión...</span>
+        <span *ngIf="!isLoading">Entrar</span>
       </button>
     </form>
+    
+    <!-- Botón de prueba rápida -->
+    <div class="quick-login">
+      <button type="button" class="btn btn-secondary" (click)="quickLogin()">
+        Login de prueba (Juan Garcia)
+      </button>
+    </div>
     
     <div class="register-link">
       <p>¿Aún no tienes cuenta? <a routerLink="/registro">Regístrate aquí</a></p>

@@ -50,50 +50,79 @@
 
   <!-- Main Content -->
   <div class="checkout-content">
-    <div class="product-card">
-      <h2 class="product-title">Camarón fresco entero (con cabeza y cáscara)</h2>
+    <!-- Carrito vacío -->
+    <div *ngIf="cart.items.length === 0" class="empty-cart">
+      <div class="empty-cart-icon">🛒</div>
+      <h2>Tu carrito está vacío</h2>
+      <p>Agrega algunos productos para continuar</p>
+      <button class="btn btn-primary" (click)="goBack()">
+        Ver productos
+      </button>
+    </div>
+
+    <!-- Carrito con productos -->
+    <div *ngIf="cart.items.length > 0" class="cart-container">
+      <h2 class="cart-title">Tu carrito ({{ cart.itemCount }} productos)</h2>
       
-      <div class="product-details">
-        <div class="product-image">
-          <img src="assets/images/camarones.png" alt="Camarones frescos" class="product-img">
-        </div>
-        
-        <div class="product-form">
-          <div class="form-group">
-            <label class="form-label">Dirección</label>
-            <input type="text" class="form-input" value="Cuauhtemoc 103, menchaca III, qro, qro" readonly>
+      <!-- Lista de productos -->
+      <div class="cart-items">
+        <div class="cart-item" *ngFor="let item of cart.items">
+          <div class="item-image">
+            <img [src]="item.image" [alt]="item.name" class="product-img">
           </div>
           
-          <div class="form-group">
-            <label class="form-label">Forma de pago</label>
-            <input type="text" class="form-input" value="Débito" readonly>
-          </div>
-          
-          <div class="form-group">
-            <label class="form-label">Cantidad de producto</label>
-            <div class="quantity-selector">
-              <button class="quantity-btn" (click)="decreaseQuantity()">-</button>
-              <input type="text" class="quantity-input" [value]="quantity + ' KG'" readonly>
-              <button class="quantity-btn" (click)="increaseQuantity()">+</button>
+          <div class="item-details">
+            <h3 class="item-name">{{ item.name }}</h3>
+            <div class="item-price">${{ item.price }} /kg</div>
+            
+            <div class="quantity-controls">
+              <button class="quantity-btn" (click)="updateQuantity(item, item.quantity - 1)">-</button>
+              <span class="quantity-display">{{ item.quantity }} KG</span>
+              <button class="quantity-btn" (click)="updateQuantity(item, item.quantity + 1)">+</button>
             </div>
+            
+            <div class="item-total">${{ (item.price * item.quantity).toFixed(2) }}</div>
           </div>
           
-          <div class="pricing">
-            <div class="price-item">
-              <span class="price-label">Subtotal</span>
-              <span class="price-value">{{ subtotal }}$</span>
-            </div>
-            <div class="price-item total">
-              <span class="price-label">Total</span>
-              <span class="price-value">{{ total }}$</span>
-            </div>
-          </div>
-          
-          <button class="pay-btn" (click)="proceedToPayment()">
-            Pagar
+          <button class="remove-btn" (click)="removeItem(item.id)">
+            🗑️
           </button>
         </div>
       </div>
+      
+      <!-- Información de envío -->
+      <div class="shipping-info">
+        <h3>Información de envío</h3>
+        <div class="form-group">
+          <label class="form-label">Dirección</label>
+          <input type="text" class="form-input" value="Cuauhtemoc 103, menchaca III, qro, qro" readonly>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Forma de pago</label>
+          <input type="text" class="form-input" value="Débito" readonly>
+        </div>
+      </div>
+      
+      <!-- Resumen de precios -->
+      <div class="pricing">
+        <div class="price-item">
+          <span class="price-label">Subtotal</span>
+          <span class="price-value">${{ subtotal.toFixed(2) }}</span>
+        </div>
+        <div class="price-item">
+          <span class="price-label">Envío</span>
+          <span class="price-value">${{ shipping.toFixed(2) }}</span>
+        </div>
+        <div class="price-item total">
+          <span class="price-label">Total</span>
+          <span class="price-value">${{ total.toFixed(2) }}</span>
+        </div>
+      </div>
+      
+      <button class="pay-btn" (click)="proceedToPayment()">
+        Proceder al pago
+      </button>
     </div>
   </div>
 </div>

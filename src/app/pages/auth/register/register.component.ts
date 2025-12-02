@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -12,9 +13,17 @@ import { RouterModule } from '@angular/router';
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  isLoading = false;
+  errorMessage = '';
+  successMessage = '';
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.registerForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -36,8 +45,33 @@ export class RegisterComponent {
 
   onSubmit() {
     if (this.registerForm.valid) {
-      console.log('Register form submitted:', this.registerForm.value);
-      // Aquí implementarías la lógica de registro
+      this.isLoading = true;
+      this.errorMessage = '';
+      this.successMessage = '';
+
+      const { name, email, password } = this.registerForm.value;
+
+      this.authService.register(name, email, password).subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          if (response.success) {
+            this.successMessage = response.message;
+            // Redirigir al home después del registro exitoso
+            setTimeout(() => {
+              this.router.navigate(['/']);
+            }, 1500);
+          } else {
+            this.errorMessage = response.message;
+          }
+        },
+        error: (error) => {
+          this.isLoading = false;
+          this.errorMessage = 'Error de conexión. Intenta nuevamente.';
+          console.error('Register error:', error);
+        }
+      });
+    } else {
+      this.errorMessage = 'Por favor, completa todos los campos correctamente.';
     }
   }
 }

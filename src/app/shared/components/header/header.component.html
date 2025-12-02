@@ -44,9 +44,21 @@
         </button>
       </div>
       <div class="sidebar-content">
-        <button class="sidebar-login-btn" routerLink="/login">
-          Iniciar sesión →
-        </button>
+        <!-- Usuario logueado -->
+        <div *ngIf="currentUser" class="user-info">
+          <div class="user-icon">👤</div>
+          <div class="user-name">{{ currentUser.name }}</div>
+          <button class="logout-btn" (click)="logout()">
+            Cerrar sesión
+          </button>
+        </div>
+        
+        <!-- Usuario no logueado -->
+        <div *ngIf="!currentUser">
+          <button class="sidebar-login-btn" (click)="goToLogin()">
+            Iniciar sesión →
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -64,7 +76,16 @@
           <div class="logo-fallback-desktop">🦐</div>
         </div>
       </div>
-      <button class="login-btn" routerLink="/login">
+      <!-- Usuario logueado en desktop -->
+      <div *ngIf="currentUser" class="user-info-desktop">
+        <span class="user-name-desktop">{{ currentUser.name }}</span>
+        <button class="logout-btn-desktop" (click)="logout()">
+          Cerrar sesión
+        </button>
+      </div>
+      
+      <!-- Usuario no logueado en desktop -->
+      <button *ngIf="!currentUser" class="login-btn" (click)="goToLogin()">
         Iniciar sesión →
       </button>
     </div>

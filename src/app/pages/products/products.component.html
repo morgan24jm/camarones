@@ -9,7 +9,8 @@
     <p class="product-description">
       Se vende tal cual, con cabeza y cáscara, ideal para platillos que requieran sabor más intenso.
     </p>
-    <button class="btn btn-primary">
+    <div class="product-price">$29.99 /kg</div>
+    <button class="btn btn-primary" (click)="addToCart({id: 0, title: 'Camarón fresco entero', image: 'assets/images/cf.jpg', description: 'Se vende tal cual, con cabeza y cáscara, ideal para platillos que requieran sabor más intenso.', price: 29.99, category: 'productos'})">
       <span>🛒</span>
       Agregar al carrito
     </button>
@@ -20,11 +21,21 @@
       <h3 class="product-title">{{ product.title }}</h3>
       <img [src]="product.image" [alt]="product.title" class="product-image">
       <p class="product-description">{{ product.description }}</p>
-      <button class="btn">
+      <div class="product-price">${{ product.price }} /kg</div>
+      <button class="btn" (click)="addToCart(product)">
         <span>🛒</span>
         Agregar al carrito
       </button>
     </div>
+  </div>
+  
+  <!-- Carrito flotante -->
+  <div class="floating-cart" *ngIf="cartItemCount > 0" (click)="goToCheckout()">
+    <div class="cart-icon">
+      🛒
+      <span class="cart-count">{{ cartItemCount }}</span>
+    </div>
+    <span class="cart-text">Ver carrito</span>
   </div>
   
   <!-- Indicador de scroll horizontal para desktop -->

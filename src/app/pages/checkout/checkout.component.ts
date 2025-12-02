@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
+import { CartService, CartItem, Cart } from '../../services/cart.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-checkout',
@@ -9,35 +11,59 @@ import { RouterModule } from '@angular/router';
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })
-export class CheckoutComponent {
-  quantity = 23;
-  pricePerKg = 18.91;
+export class CheckoutComponent implements OnInit, OnDestroy {
+  cart: Cart = { items: [], total: 0, itemCount: 0 };
   showMobileMenu = false;
+  private cartSubscription: Subscription = new Subscription();
   
   get subtotal(): number {
-    return Math.round(this.quantity * this.pricePerKg);
+    return this.cart.total;
+  }
+  
+  get shipping(): number {
+    return 65; // Fixed shipping cost
   }
   
   get total(): number {
-    return this.subtotal + 65; // Shipping and taxes
+    return this.subtotal + this.shipping;
+  }
+
+  constructor(
+    private cartService: CartService,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    this.cartSubscription = this.cartService.cart$.subscribe(cart => {
+      this.cart = cart;
+    });
+  }
+
+  ngOnDestroy() {
+    this.cartSubscription.unsubscribe();
   }
 
   toggleMobileMenu() {
     this.showMobileMenu = !this.showMobileMenu;
   }
 
-  increaseQuantity() {
-    this.quantity++;
+  updateQuantity(item: CartItem, newQuantity: number) {
+    this.cartService.updateQuantity(item.id, newQuantity);
   }
 
-  decreaseQuantity() {
-    if (this.quantity > 1) {
-      this.quantity--;
-    }
+  removeItem(itemId: string) {
+    this.cartService.removeFromCart(itemId);
   }
 
   proceedToPayment() {
-    // Navigate to confirmation page
-    window.location.href = '/confirmacion';
+    if (this.cart.items.length === 0) {
+      alert('Tu carrito está vacío');
+      return;
+    }
+    this.router.navigate(['/confirmacion']);
+  }
+
+  goBack() {
+    this.router.navigate(['/productos']);
   }
 }
